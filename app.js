@@ -8,8 +8,9 @@ const authRoutes = require("./routes/authRoutes");
 const app = express();
 const port = process.env.PORT || 3000;
 const mongoUri = process.env.MONGO_URI;
-app.use(authRoutes);
 app.use(bodyParser.json()); //to handle json
+
+app.use(authRoutes);
 mongoose.connect(mongoUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

@@ -2,12 +2,14 @@ require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
+const bodyParser = require("body-parser");
 const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 const port = process.env.PORT || 3000;
 const mongoUri = process.env.MONGO_URI;
 app.use(authRoutes);
+app.use(bodyParser.json()); //to handle json
 mongoose.connect(mongoUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

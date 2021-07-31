@@ -1,11 +1,13 @@
-require('dotenv').config();
+require("dotenv").config();
 
 const express = require("express");
 const mongoose = require("mongoose");
+const authRoutes = require("./routes/authRoutes");
 
 const app = express();
 const port = process.env.PORT || 3000;
-const mongoUri =process.env.MONGO_URI;
+const mongoUri = process.env.MONGO_URI;
+app.use(authRoutes);
 mongoose.connect(mongoUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,
@@ -14,9 +16,9 @@ mongoose.connect(mongoUri, {
 mongoose.connection.on("connected", () => {
   console.log("successfully connected!");
 });
-mongoose.connection.on('error',(err)=>{
-    console.error(err,'Error connecting')
-})
+mongoose.connection.on("error", (err) => {
+  console.error(err, "Error connecting");
+});
 
 app.get("/", (req, res) => {
   res.json({

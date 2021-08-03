@@ -23,16 +23,19 @@ router.post("/signin", async (req, res) => {
   if (!email || !password) {
     return res.status(422).send({ message: "Must provide email or password" });
   }
-  const user = await User.findOne({email})
+  const user = await User.findOne({ email });
 
-  if(!user){
-    return res.status(404).send({message: 'No one found out with that email!'})
+  if (!user) {
+    return res
+      .status(422)
+      .send({ message: "No one found out with that email!" });
   }
   try {
     await user.comparePassword(password);
-
+    const token = jwt.sign({userId: user._id}, process.env.KEY)
+    res.send({token})
   } catch (error) {
-      return res.status(422).send({message: 'Incorrect credentials entered!'})
+    return res.status(422).send({ message: "Incorrect credentials entered!" });
   }
 });
 

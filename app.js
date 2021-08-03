@@ -1,11 +1,12 @@
 require("dotenv").config();
 require("./models/User");
-require("./models/Tracks")
+require("./models/Tracks");
 
 const express = require("express");
 const mongoose = require("mongoose");
 const bodyParser = require("body-parser");
 const authRoutes = require("./routes/authRoutes");
+const trackRoutes = require("./routes/trackRoutes");
 const requireAuth = require("./middleware/requireAuth");
 const app = express();
 const port = process.env.PORT || 3000;
@@ -13,6 +14,7 @@ const mongoUri = process.env.MONGO_URI;
 app.use(bodyParser.json()); //to handle json
 
 app.use(authRoutes);
+app.use(trackRoutes);
 mongoose.connect(mongoUri, {
   useNewUrlParser: true,
   useUnifiedTopology: true,

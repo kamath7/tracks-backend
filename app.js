@@ -1,5 +1,6 @@
 require("dotenv").config();
 require("./models/User");
+require("./models/Tracks")
 
 const express = require("express");
 const mongoose = require("mongoose");

@@ -21,6 +21,18 @@ router.post("/tracks", async (req, res) => {
       .status(422)
       .send({ message: "Error! Name and location needs to be provided" });
   }
+
+  try {
+    const track = new Track({
+      name,
+      locations,
+      userId: req.user._id,
+    });
+    await track.save();
+    res.send({ message: "Track saved", track });
+  } catch (error) {
+    res.status(422).send({ message: "Error!", error });
+  }
 });
 
 module.exports = router;

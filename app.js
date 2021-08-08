@@ -32,7 +32,11 @@ app.get("/", requireAuth, (req, res) => {
     message: `Welcome ${req.user.email}`,
   });
 });
-
+app.get("/lalle", (req, res) => {
+  res.json({
+    message: "Drink water",
+  });
+});
 app.listen(port, () => {
   console.log(`Listening on ${port}`);
 });
